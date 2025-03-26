@@ -11,6 +11,9 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		FC1B62BE353B43E39E3D7B91 /* Outfit-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 90F8173FD3FE431E9574E1B9 /* Outfit-Bold.ttf */; };
+		360A4E03AA1E4A93BAD6AC0E /* Outfit-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B3C4D26932E444F29F78C0E4 /* Outfit-Medium.ttf */; };
+		0C168F4EA66D497D9ED4D142 /* Outfit-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 831567538BCA44D6862B12E9 /* Outfit-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +38,9 @@
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = mykocak/AppDelegate.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = mykocak/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		90F8173FD3FE431E9574E1B9 /* Outfit-Bold.ttf */ = {isa = PBXFileReference; name = "Outfit-Bold.ttf"; path = "../src/assets/fonts/Outfit-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		B3C4D26932E444F29F78C0E4 /* Outfit-Medium.ttf */ = {isa = PBXFileReference; name = "Outfit-Medium.ttf"; path = "../src/assets/fonts/Outfit-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		831567538BCA44D6862B12E9 /* Outfit-Regular.ttf */ = {isa = PBXFileReference; name = "Outfit-Regular.ttf"; path = "../src/assets/fonts/Outfit-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +99,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				01544AE06BF240E0B5364582 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -115,6 +122,17 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
+		};
+		01544AE06BF240E0B5364582 /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				90F8173FD3FE431E9574E1B9 /* Outfit-Bold.ttf */,
+				B3C4D26932E444F29F78C0E4 /* Outfit-Medium.ttf */,
+				831567538BCA44D6862B12E9 /* Outfit-Regular.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -185,6 +203,9 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				FC1B62BE353B43E39E3D7B91 /* Outfit-Bold.ttf in Resources */,
+				360A4E03AA1E4A93BAD6AC0E /* Outfit-Medium.ttf in Resources */,
+				0C168F4EA66D497D9ED4D142 /* Outfit-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
