@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, createContext, useContext } from 'react';
+import React, { useState, useRef, useEffect, createContext, useContext, useCallback } from 'react';
 import Toast, { ToastType, ToastPosition } from './Toast';
 
 // Toast ayarları için arayüz
@@ -37,8 +37,13 @@ export const ToastProvider: React.FC<{children: React.ReactNode}> = ({ children 
   // Aktif zamanlayıcı referansı
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Toast'u gösterme fonksiyonu
-  const showToast = (config: ToastConfig) => {
+  // Toast'u gizleme fonksiyonu - memoize edildi
+  const hideToast = useCallback(() => {
+    setVisible(false);
+  }, []);
+
+  // Toast'u gösterme fonksiyonu - memoize edildi
+  const showToast = useCallback((config: ToastConfig) => {
     // Önceki zamanlayıcıyı temizle
     if (timerRef.current) {
       clearTimeout(timerRef.current);
@@ -51,22 +56,28 @@ export const ToastProvider: React.FC<{children: React.ReactNode}> = ({ children 
     setPosition(config.position || 'top');
     setDuration(config.duration || 3000);
     setShowIcon(config.showIcon !== undefined ? config.showIcon : true);
+    
+    // Görünürlüğü ayarla
     setVisible(true);
-  };
+  }, []);
 
-  // Toast'u gizleme fonksiyonu
-  const hideToast = () => {
-    setVisible(false);
-  };
-
-  // Component unmount olduğunda zamanlayıcıyı temizle
+  // Zamanlayıcıyı visible değeri değiştiğinde yönet
   useEffect(() => {
+    // Eğer toast görünür duruma geldiyse, zamanlayıcıyı başlat
+    if (visible) {
+      timerRef.current = setTimeout(() => {
+        hideToast();
+      }, duration);
+    }
+    
+    // Temizleme fonksiyonu
     return () => {
       if (timerRef.current) {
         clearTimeout(timerRef.current);
+        timerRef.current = null;
       }
     };
-  }, []);
+  }, [visible, duration, hideToast]);
 
   return (
     <ToastContext.Provider value={{ showToast, hideToast }}>

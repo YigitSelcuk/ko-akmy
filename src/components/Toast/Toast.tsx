@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useLayoutEffect } from 'react';
 import {
   View,
   Text,
@@ -43,6 +43,7 @@ const Toast: React.FC<ToastProps> = ({
   // Toast'un ekranda görünürlüğünü animasyonla kontrol etmek için
   const slideAnim = useRef(new Animated.Value(0)).current;
   const [isVisible, setIsVisible] = useState(false);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   // Toast tiplerine göre renk ve ikon seçimi
   const getToastTypeInfo = () => {
@@ -80,47 +81,62 @@ const Toast: React.FC<ToastProps> = ({
     }
   };
 
-  // Toast pozisyonuna göre stil belirleme
-  const getToastPositionStyle = (): ViewStyle => {
-    if (position === 'top') {
-      return {
-        top: isVisible ? 20 : -100,
-      };
-    } else {
-      return {
-        bottom: isVisible ? 20 : -100,
-      };
-    }
+  // Animasyonu başlat
+  const startAnimation = (toValue: number, callback?: () => void) => {
+    Animated.timing(slideAnim, {
+      toValue,
+      duration: 300,
+      useNativeDriver: true,
+    }).start(callback);
   };
 
-  useEffect(() => {
-    if (visible) {
+  // isVisible state'ini güncelle - animasyon durumunda değil, sadece görünürlük değiştiğinde
+  useLayoutEffect(() => {
+    if (visible && !isVisible) {
       setIsVisible(true);
-      // Toast'u gösterme animasyonu
-      Animated.timing(slideAnim, {
-        toValue: 1,
-        duration: 300,
-        useNativeDriver: true,
-      }).start();
+    }
+  }, [visible, isVisible]);
+
+  // Toast görünürlüğünü yönet
+  useEffect(() => {
+    // Görünürlük değiştiğinde
+    if (visible) {
+      // Önceki zamanlayıcıyı temizle
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+        timerRef.current = null;
+      }
+
+      // Animasyonu başlat
+      startAnimation(1);
 
       // Otomatik kapanma zamanlayıcısı
-      const timer = setTimeout(() => {
+      timerRef.current = setTimeout(() => {
         hideToast();
       }, duration);
-
-      return () => clearTimeout(timer);
-    } else {
+    } else if (isVisible) {
+      // Toast açıkken kapatılırsa
       hideToast();
     }
-  }, [visible]);
+
+    // Temizleme fonksiyonu
+    return () => {
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+        timerRef.current = null;
+      }
+    };
+  }, [visible, duration, isVisible]);
 
   // Toast'u gizleme fonksiyonu
   const hideToast = () => {
-    Animated.timing(slideAnim, {
-      toValue: 0,
-      duration: 300,
-      useNativeDriver: true,
-    }).start(() => {
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+      timerRef.current = null;
+    }
+
+    // Kapanma animasyonunu başlat
+    startAnimation(0, () => {
       setIsVisible(false);
       if (onClose) onClose();
     });
@@ -140,6 +156,7 @@ const Toast: React.FC<ToastProps> = ({
   // Opaklık animasyonu
   const opacity = slideAnim;
 
+  // JSX
   return (
     <Animated.View
       style={[

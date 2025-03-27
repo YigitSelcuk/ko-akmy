@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions, Platform } from 'react-native';
 import { COLORS, FONTS } from '../../theme/theme';
 
 const { width, height } = Dimensions.get('window');
@@ -232,33 +232,43 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: 15,
-    paddingTop: 15,
-    borderTopWidth: 1,
-    borderTopColor: 'rgba(255,255,255,0.1)',
+    paddingVertical: 10,
+    paddingHorizontal: 5,
   },
   actionButton: {
     flex: 1,
-    marginHorizontal: 5,
-    overflow: 'hidden',
+    marginHorizontal: 6,
     borderRadius: 10,
-    elevation: 3,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 3,
+    overflow: 'hidden',
+    shadowColor: COLORS.background,
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 4,
   },
   actionButtonGradient: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 8,
-    paddingHorizontal: 12,
+    paddingVertical: 12,
+    paddingHorizontal: 10,
+    backgroundColor: COLORS.gray,
+  },
+  deleteButtonGradient: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 10,
+    backgroundColor: COLORS.error,
   },
   actionButtonText: {
     ...FONTS.body3,
     color: COLORS.white,
-    marginLeft: 5,
-    fontWeight: '600',
+    marginLeft: 6,
+    fontWeight: '700',
+    textAlign: 'center',
+    fontSize: 14,
   },
   
   // Eski aksiyon butonları (referans için tutuldu)
